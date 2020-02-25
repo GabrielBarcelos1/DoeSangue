@@ -1,0 +1,27 @@
+{
+  "name": "DoeSangue1",
+  "version": "1.0.0",
+  "description": "Site web utilizando HTML, CSS, JS e node no backend",
+  "main": "js.js",
+  "dependencies": {
+    "express": "^4.17.1",
+    "nodemon": "^2.0.2",
+    "nunjucks": "^3.2.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GabrielBarcelos1/DoeSangue.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GabrielBarcelos1/DoeSangue/issues"
+  },
+  "homepage": "https://github.com/GabrielBarcelos1/DoeSangue#readme"
+}
