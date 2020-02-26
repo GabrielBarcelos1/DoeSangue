@@ -17,38 +17,32 @@
         <p>Apenas 1,9% da população brasileira, doa sangue</p>
         <button>Quero ajudar</button>
     </header>
-    <section class="form hide" >
+    <section class="form hide">
         <h2>Entre na lista de doadores</h2>
-        <form action="/">
+        <form action="/" method="POST">
             <input type="text" name="name" placeholder="Nome completo">
             <input type="text" name="email" placeholder="E-mail">
             <input type="text" name="blood" placeholder="Tipo sanguíneo">
             <button>Quero ajudar</button>
         </form>
     </section>
-    
+
     <main>
         <h2>Ultimos <span>doadores</span></h2>
         <section class="donors">
-          <div class="donor">
-              <div class="blood">A+</div>
-              <p>Gabriel Vieira</p>
-          </div>
-          <div class="donor">
-            <div class="blood">B+</div>
-            <p>Beatriz Bitencourt</p>
-        </div>
-        <div class="donor">
-            <div class="blood">O-</div>
-            <p>Robson Marques</p>
-        </div>
-        <div class="donor">
-            <div class="blood">AB+</div>
-            <p>Juliano Paes</p>
-        </div>
+
+
+            {% for donor in donors %}
+            <div class="donor">
+                <div class="blood">{{donor.blood}}</div>
+                <p>{{donor.name}}</p>
+            </div>
+
+            {% endfor %}
         </section>
     </main>
     <footer>Com ❤ Gabriel Vieira</footer>
 </body>
 <script src="/javascript.js"></script>
+
 </html>
