@@ -2,6 +2,28 @@
 const express = require("express")
 const server = express()
 
+//conexao com o bd
+const mysql = require('mysql')
+var db = mysql.createConnection({
+    host     : 'localhost',
+    user     : 'root',
+    password : '',
+    database : 'doe',
+    port: 3306
+  });
+  db.connect(function(err) {
+    if (err) {
+      console.error('error connecting: ' + err.stack);
+      return;
+    }
+   
+    console.log('connected as id ' + db.threadId);
+  });
+  db.query('select * from donors', function(err, result) {
+    console.log(result);
+  })
+
+
 //configurar o servidor para apresentar arquivos estaticos
 server.use(express.static('public'))
 
@@ -17,43 +39,37 @@ nunjucks.configure("./", {
     noCache: true
 })
 
-// lista de doadores(array)
-const donors = [
-    {
-        name:"Gabriel Vieira",
-        blood: "A+"
-    },
-    {
-        name:"Beatriz Bitencourt",
-        blood: "B+"
-    },
-    {
-        name:"Robson Marques",
-        blood: "O-"
-    },
-    {
-        name:"Juliano Paes",
-        blood: "AB+"
-    }
-]
-
-
-
 //configurar apresentação da pagina
 server.get("/", function(req, res){
-    return res.render("index.html", {donors})
+    
+    db.query("select * from donors", function(err, result){
+        if (err) return res.send("Erro de banco de dados.")
+
+        console.log("b")
+        const donors = result.rows
+        
+        
+        return res.render("index.html", {donors})
+    })
 })
 server.post("/", function(req,res){
     //pegar dados do formulario
     const name = req.body.name
     const email = req.body.email
     const blood = req.body.blood
-    //colocar valores dentro do array
-    donors.push({
-        name: name,
-        blood: blood,
+    if(name == "" || email == "" || blood == "" ){
+        return res.send("Todos os campos são obrigatórios.")
+    }
+    //colocar valores dentro do banco de dados
+    const query =`INSERT INTO donors (nome,email,blood) 
+    VALUES ('${name}', '${email}', '${blood}')`
+    db.query(query,function(err){
+        //fluxo de erro
+        if(err) return res.send ("erro no banco de dados.")
+        //fluxo ideal
+        return res.redirect("/")
     })
-    return res.redirect("/")
+    
 })
 
 //ligar o servidor e permitir o acesso na porta 3000
