@@ -19,9 +19,7 @@ var db = mysql.createConnection({
    
     console.log('connected as id ' + db.threadId);
   });
-  db.query('select * from donors', function(err, result) {
-    console.log(result);
-  })
+  
 
 
 //configurar o servidor para apresentar arquivos estaticos
@@ -38,18 +36,17 @@ nunjucks.configure("./", {
     express: server,
     noCache: true
 })
-
 //configurar apresentação da pagina
 server.get("/", function(req, res){
-    
     db.query("select * from donors", function(err, result){
         if (err) return res.send("Erro de banco de dados.")
+       //else return res.send(result)
 
-        console.log("b")
-        const donors = result.rows
+    
+        const donors = result
         
         
-        return res.render("index.html", {donors})
+      return res.render("index.html", {donors})
     })
 })
 server.post("/", function(req,res){
