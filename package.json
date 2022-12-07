@@ -4,7 +4,7 @@
   "description": "Site web utilizando HTML, CSS, JS e node no backend",
   "main": "js.js",
   "dependencies": {
-    "express": "^4.17.1",
+    "express": "^4.18.2",
     "mysql": "^2.18.1",
     "nodemon": "^2.0.2",
     "nunjucks": "^3.2.0"
